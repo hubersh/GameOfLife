@@ -23,10 +23,12 @@ int write_file(char* filename, char *buffer, int size){
 int createArray(r, c){
 	int *arr = (int *)malloc(r * c * sizeof(int));
 
-	int i, j, count = 0;
-	for (i = 0; i < r; i++)
-	for (j = 0; j < c; j++)
-		*(arr + i*c + j) = ++count;
+	int i, j = 0;//, count = 0;
+	for (i = 0; i < r; i++){
+		for (j = 0; j < c; j++){
+			*(arr + i*c + j) = 0;//++count;
+		}
+	}
 
 	for (i = 0; i < r; i++){
 	    for (j = 0; j < c; j++){
