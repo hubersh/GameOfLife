@@ -9,11 +9,11 @@
 
 
 int read_file(char* filename, char **buffer){
-
+	return 0;
 }
 
 int write_file(char* filename, char *buffer, int size){
-
+	return 0;
 }
 
 /**
@@ -21,7 +21,6 @@ int write_file(char* filename, char *buffer, int size){
 * https://www.geeksforgeeks.org/dynamically-allocate-2d-array-c/
 **/
 int createArray(r, c){
-	int r = 3, c = 4;
 	int *arr = (int *)malloc(r * c * sizeof(int));
 
 	int i, j, count = 0;
@@ -42,8 +41,7 @@ int createArray(r, c){
 }
 
 void game(int w, int h){
-	int r = w, c = h;
-	createArray(r, w);
+	createArray(w, h);
 }
 
 int main(int c, char **v){
