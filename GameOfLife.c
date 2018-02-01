@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+int read_file( char* filename, char **buffer ){
+
+}
+
+int write_file( char* filename, char *buffer, int size){
+
+}
+
 void game(int w, int h){
 
 }
