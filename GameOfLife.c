@@ -26,7 +26,16 @@ int createArray(r, c){
 	int i, j = 0;//, count = 0;
 	for (i = 0; i < r; i++){
 		for (j = 0; j < c; j++){
-			*(arr + i*c + j) = 0;//++count;
+			int val = rand() %11;
+			if (val <= 6){
+				*(arr + i*c + j) = 0;
+			}
+			else if (val > 6 && val < 9){
+				*(arr + i*c + j) = 1;
+			}
+			else{
+				*(arr + i*c + j) = 2;//++count;
+			}
 		}
 	}
 
