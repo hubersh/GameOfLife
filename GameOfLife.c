@@ -38,21 +38,20 @@ int createArray(r, c){
 			}
 		}
 	}
-
 	for (i = 0; i < r; i++){
 	    for (j = 0; j < c; j++){
 		    printf("%d ", *(arr + i*c + j));
 	    }
 		printf("\n");
 	}
-
 	//Move for actual game
 	free(arr);
 	return 0;
 }
 
-void game(int w, int h){
-	createArray(w, h);
+void game(char filename[]){
+	printf("Filename: %s\n", filename);
+
 }
 
 int main(int c, char **v){
@@ -63,19 +62,8 @@ int main(int c, char **v){
 	if(c <= 1) {
 		printf("Hello. Please include a filename:\n");
 		fgets(filename,100,stdin);
-		printf("%s\n", filename);
-		//PASS FILE HERE
+		game(filename);
 	} else { 
-		printf("%s\n", v[1]);
-		//PASS FILE HERE
+		game(v[1]);
 	}
-	
-	// int w = 0;
-	// int h = 0;
-	// if (c > 1){ w = v[1] }
-	// if (c > 2){ h = atoi(v[2]); }
-	// if (w <= 0){ w = 4; }
-	// if (h <= 0){ h = 5; }
-	// game(w, h);
-
 }
