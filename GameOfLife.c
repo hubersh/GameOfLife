@@ -56,12 +56,17 @@ void game(int w, int h){
 }
 
 int main(int c, char **v){
-	int w = 0;
-	int h = 0;
-	if (c > 1){ w = atoi(v[1]); }
-	if (c > 2){ h = atoi(v[2]); }
-	if (w <= 0){ w = 4; }
-	if (h <= 0){ h = 5; }
-	game(w, h);
+	//Size of the file name
+	char filename [100];
 
+	//If no user input prompt for filename
+	if(c <= 1) {
+		printf("Hello. Please include a filename:\n");
+		fgets(filename,100,stdin);
+		printf("%s\n", filename);
+		//PASS FILE HERE
+	} else { 
+		printf("%s\n", v[1]);
+		//PASS FILE HERE
+	}
 }
