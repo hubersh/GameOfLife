@@ -8,13 +8,35 @@
 **/
 
 
+/**
+* Help with initial read of the file
+* https://stackoverflow.com/questions/3463426/in-c-how-should-i-read-a-text-file-and-print-all-strings
+**/
+
 int read_file(char* filename, char **buffer){
+
+	int c;
+	FILE *file = fopen(filename, "r");
+
+	if (file) {
+	    while ((c = getc(file)) != EOF){
+	        putchar(c);
+	    }
+	    fclose(file);
+	} else {
+		perror("fopen");
+	}
+	printf("\n");
 	return 0;
 }
+
+
 
 int write_file(char* filename, char *buffer, int size){
 	return 0;
 }
+
+
 
 /**
 * Citation and inspiration
@@ -22,18 +44,15 @@ int write_file(char* filename, char *buffer, int size){
 **/
 int createArray(r, c){
 	int *arr = (int *)malloc(r * c * sizeof(int));
-
 	int i, j = 0;//, count = 0;
 	for (i = 0; i < r; i++){
 		for (j = 0; j < c; j++){
 			int val = rand() %11;
 			if (val <= 6){
 				*(arr + i*c + j) = 0;
-			}
-			else if (val > 6 && val < 9){
+			} else if (val > 6 && val < 9){
 				*(arr + i*c + j) = 1;
-			}
-			else{
+			} else {
 				*(arr + i*c + j) = 2;//++count;
 			}
 		}
@@ -51,18 +70,17 @@ int createArray(r, c){
 
 void game(char filename[]){
 	printf("Filename: %s\n", filename);
+	char* buffer;
+	read_file(filename, &buffer);
 
 }
 
 int main(int c, char **v){
-	//Size of the file name
-	char filename [100];
-
 	//If no user input prompt for filename
 	if(c <= 1) {
-		printf("Hello. Please include a filename:\n");
-		fgets(filename,100,stdin);
-		game(filename);
+		printf("\nHello. Please include a filename.\n");
+		printf("For example: './a.out test.txt'\n\n");
+		exit(0);
 	} else { 
 		game(v[1]);
 	}
