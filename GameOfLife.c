@@ -18,6 +18,13 @@ int read_file(char* filename, char **buffer){
 	int c;
 	FILE *file = fopen(filename, "r");
 
+	//https://stackoverflow.com/questions/238603/how-can-i-get-a-files-size-in-c
+	fseek(file, 0L, SEEK_END);
+	int sz = ftell(file);
+	fseek(file, 0L, SEEK_SET);
+
+	printf("%d\n", sz);
+
 	if (file) {
 	    while ((c = getc(file)) != EOF){
 	        putchar(c);
