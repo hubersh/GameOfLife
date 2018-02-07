@@ -27,6 +27,9 @@ int read_file(char* filename, char **buffer){
 
 	if (file) {
 	    while ((c = getc(file)) != EOF){
+	    	if(c == '\n'){
+	    		putchar('H');
+	    	}
 	        putchar(c);
 	    }
 	    fclose(file);
