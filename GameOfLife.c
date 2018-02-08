@@ -16,20 +16,22 @@
 int read_file(char* filename, char **buffer){
 
 	int c;
+	printf("1");
 	FILE *file = fopen(filename, "r");
-
+printf("2");
 	//https://stackoverflow.com/questions/238603/how-can-i-get-a-files-size-in-c
 	fseek(file, 0L, SEEK_END);
 	int sz = ftell(file);
 	fseek(file, 0L, SEEK_SET);
+	printf("3");
 
 	printf("%d\n", sz);
 
 	if (file) {
 	    while ((c = getc(file)) != EOF){
-	    	if(c == '\n'){
-	    		putchar('H');
-	    	}
+	    	// if(c == '\n'){
+	    	// 	putchar('H');
+	    	// }
 	        putchar(c);
 	    }
 	    fclose(file);
@@ -39,8 +41,6 @@ int read_file(char* filename, char **buffer){
 	printf("\n");
 	return 0;
 }
-
-
 
 int write_file(char* filename, char *buffer, int size){
 	return 0;
@@ -82,6 +82,41 @@ void game(char filename[]){
 	printf("Filename: %s\n", filename);
 	char* buffer;
 	read_file(filename, &buffer);
+
+	int x;
+	char status [1024];
+
+	printf("Save (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n");
+	printf("\n");
+	fgets(status, sizeof(status), stdin);
+
+	if (*status == 'S') {
+		char newFile [1024];
+		printf("Please provide a new filename: ");
+		fgets(newFile, sizeof(newFile), stdin);
+		//write_file(newFile, &buffer, size);
+
+	} else if (*status == 'L'){
+		char newFile [1024];
+		printf("Please provide a filename to load: ");
+		fgets(newFile, sizeof(newFile), stdin);
+		//printf(newFile);
+		read_file(newFile, &buffer);
+
+	} else if (*status == 'C'){
+		;
+
+	// } else if ((x = atoi(status))){
+	// 	printf('HIT');
+
+	} else if (*status == 'Q'){
+		exit(0);
+
+	} else {
+		printf("Please enter a valid input.");
+	}
+
+	// printf("%s\n", strlen(status));
 
 }
 
