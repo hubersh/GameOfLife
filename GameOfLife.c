@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include "GameOfLife.h"
 /**
 * Citation and game logic help
 * https://rosettacode.org/wiki/Conway%27s_Game_of_Life#C
@@ -44,7 +44,7 @@ int write_file(char* filename, char *buffer, int size){
 * Citation and inspiration
 * https://www.geeksforgeeks.org/dynamically-allocate-2d-array-c/
 **/
-int createArray(r, c){
+int createArray(int r, int c){
 	int *arr = (int *)malloc(r * c * sizeof(int));
 	int i, j = 0;//, count = 0;
 	for (i = 0; i < r; i++){
