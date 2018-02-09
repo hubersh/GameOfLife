@@ -45,46 +45,35 @@ void game(char filename[]){
 	char* buffer;
 	read_file(filename, &buffer);
 
-	int x;
-	//char status [1024];
+	printf("Save (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
 
-	printf("Save (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n");
-	printf("\n");
-	//new
+	int x;
 	char* status;
-	// fgets(status, sizeof(status), stdin);
-	//new
 	size_t len = 0;
 	ssize_t read = getline(&status, &len, stdin);
 
 	if (*status == 'S') {
 		char newFile [1024];
+		int size = 0;
 		printf("Please provide a new filename: ");
 		fgets(newFile, sizeof(newFile), stdin);
-		//write_file(newFile, &buffer, size);
-
+		write_file(newFile, buffer, size);
 	} else if (*status == 'L'){
 		char* newFile;
 		printf("Please provide a filename to load: ");
 		ssize_t read = getline(&newFile, &len, stdin);
-		//printf(newFile);
 		read_file(newFile, &buffer);
-
 	} else if (*status == 'C'){
-		;
-
+		; //Game Logic called here
 	} else if ((x = atoi(status))){
 		printf("%s\n","Hit");
-
+		//Game Logic called here
 	} else if (*status == 'Q'){
+		printf("%s\n", "Thanks for playing!");
 		exit(0);
-
 	} else {
 		printf("Please enter a valid input.");
 	}
-
-	// printf("%s\n", strlen(status));
-
 }
 
 int main(int c, char **v){
