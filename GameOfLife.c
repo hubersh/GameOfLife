@@ -56,7 +56,7 @@ void game(char filename[]){
 		char newFile [1024];
 		int size = 0;
 		printf("Please provide a new filename: ");
-		fgets(newFile, sizeof(newFile), stdin);
+		fgets(newFile, sizeof(newFile)-1, stdin); //Double Check -1
 		write_file(newFile, buffer, size);
 	} else if (*status == 'L'){
 		char* newFile;
