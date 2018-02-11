@@ -42,8 +42,8 @@ int createArray(int r, int c){
 
 void game(char filename[]){
 	printf("Filename: %s\n", filename);
-	char* buffer;
-	read_file(filename, &buffer);
+	char* arr;
+	read_file(filename, &arr);
 	int n = 0;
 	while (n == 0) {
 		printf("Save (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
@@ -60,12 +60,12 @@ void game(char filename[]){
 			int size = 0;
 			printf("Please provide a new filename: ");
 			fgets(newFile, sizeof(newFile), stdin); //Double Check -1
-			write_file(newFile, buffer, size);
+			write_file(newFile, arr, size);
 		} else if (*status == 'L' || *status == 'l'){
 			char* newFile;
 			printf("Please provide a filename to load: ");
 			ssize_t read = getline(&newFile, &len, stdin);
-			read_file(newFile, &buffer);
+			read_file(newFile, &arr);
 		} else if (*status == 'C' || *status == 'c'){
 			; //Game Logic called here
 		} else if ((x = atoi(status))){
