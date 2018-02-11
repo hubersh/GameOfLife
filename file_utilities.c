@@ -15,37 +15,6 @@
 * https://stackoverflow.com/questions/8770408/convert-int-to-char-in-standard-c-without-itoa
 **/
 
-
-// int createArray(int r, int c, char **buffer){
-
-// 	*buffer = (int *)malloc(r * c * sizeof(int));
-// 	int i, j = 0;//, count = 0;
-// 	for (i = 0; i < r; i++){
-// 		for (j = 0; j < c; j++){
-// 			int val = rand() %11;
-// 			if (val <= 6){
-// 				*(buffer + i*c + j) = 0;
-// 			} else if (val > 6 && val < 9){
-// 				*(buffer + i*c + j) = 1;
-// 			} else {
-// 				*(buffer + i*c + j) = 2;//++count;
-// 			}
-// 		}
-// 	}
-// 	for (i = 0; i < r; i++){
-// 	    for (j = 0; j < c; j++){
-// 		    printf("%d ", *(buffer + i*c + j));
-// 	    }
-// 		printf("\n");
-// 	}
-// 	//Move for actual game
-// 	free(buffer);
-// 	return 0;
-// }
-
-
-
-
 int rowCount;
 int colCount;
 
@@ -55,6 +24,7 @@ int read_file(char* filename, char **buffer){
 
 	colCount = 0;
 	rowCount = 0;
+
 
 	if (file) {
 	    while ((c = getc(file)) != EOF){
