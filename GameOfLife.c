@@ -55,23 +55,23 @@ void game(char filename[]){
 	size_t len = 0;
 	ssize_t read = getline(&status, &len, stdin);
 
-	if (*status == 'S') {
+	if (*status == 'S' || *status == 's') {
 		char newFile [1024];
 		int size = 0;
 		printf("Please provide a new filename: ");
 		fgets(newFile, sizeof(newFile), stdin); //Double Check -1
 		write_file(newFile, buffer, size);
-	} else if (*status == 'L'){
+	} else if (*status == 'L' || *status == 'l'){
 		char* newFile;
 		printf("Please provide a filename to load: ");
 		ssize_t read = getline(&newFile, &len, stdin);
 		read_file(newFile, &buffer);
-	} else if (*status == 'C'){
+	} else if (*status == 'C' || *status == 'c'){
 		; //Game Logic called here
 	} else if ((x = atoi(status))){
 		printf("%s\n","Hit");
 		//Game Logic called here
-	} else if (*status == 'Q'){
+	} else if (*status == 'Q' || *status == 'q'){
 		printf("%s\n", "Thanks for playing!");
 		exit(0);
 	} else {
