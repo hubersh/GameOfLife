@@ -75,7 +75,8 @@ void game(char filename[]){
 		printf("%s\n", "Thanks for playing!");
 		exit(0);
 	} else {
-		printf("Please enter a valid input.");
+		printf("Please enter a valid input.\nGame exiting.");
+		exit(0);
 	}
 }
 

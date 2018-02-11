@@ -7,20 +7,74 @@
 /**
 * Help with initial read of the file
 * https://stackoverflow.com/questions/3463426/in-c-how-should-i-read-a-text-file-and-print-all-strings
+*
+* Help getting size of a file
+* https://stackoverflow.com/questions/238603/how-can-i-get-a-files-size-in-c
+* 
+* Help converting int to char* -- sprintf
+* https://stackoverflow.com/questions/8770408/convert-int-to-char-in-standard-c-without-itoa
 **/
+
+int rowCount;
+int colCount;
 
 int read_file(char* filename, char **buffer){
 	int c;
 	FILE *file = fopen(filename, "r");
 
+	//get the size of the file
+	fseek(file, 0L, SEEK_END);
+	int sz = ftell(file);
+	fseek(file, 0L, SEEK_SET);
+
+	printf("file size: %d\n", sz);
+
+
+
 	if (file) {
+
+		colCount = 0;
+		rowCount = 0;
 	    while ((c = getc(file)) != EOF){
-	    	// if(c == '\n'){
-	    	// 	putchar('H');
-	    	// }
-	        putchar(c);
+	    	 if(c == '\n'){
+	    	 	colCount = 0;
+	    	 	rowCount++;
+	    	 }
+	       // putchar(c);
+	        colCount++;
 	    }
+
+	    printf("Number of Columns: %d\n", colCount - 1);
+	    printf("Number of Rows: %d\n\n", rowCount + 1);
+
+	    //allocate space for the file contents
+		//Don't forget to free this bitch
+		//*buffer = (char*)malloc(sz * sizeof(char));
+
+	    //go back to the beggining of the file
+	    fseek(file, 0L, SEEK_SET);
+	   
+	    int i, j = 0;
+	    for(i = 0; i < rowCount + 1; i++){
+	    	for (j = 0; j < colCount; j++){
+	    		
+	    		c = getc(file);
+
+	    		if(i < rowCount + 1 && j < colCount -1){
+	    			putchar(c);
+	    		}
+
+	    		//char* str;
+	    		//sprintf(str, "%d", c);
+	    		//*(buffer + i*colCount + j) = str;
+	    		
+	    	}
+	    	printf("\n");
+	    }
+
 	    fclose(file);
+
+
 	} else {
 
 		size_t sz = strlen(filename);
@@ -40,6 +94,10 @@ int read_file(char* filename, char **buffer){
 		}
 	}
 	printf("\n");
+
+	//MOVE THIS LATER
+	//free(buffer);
+
 	return 0;
 }
 
@@ -58,8 +116,26 @@ int write_file(char* filename, char *buffer, int size){
 
 	FILE *f = fopen(temp, "wb");
 
+	if (f == NULL){
+		printf("Error opening file\n");
+		exit(0);
+	}
+
+	char* str;
+	
+	int i, j = 0;
+	for(i = 0; i < rowCount + 1; i++){
+	   	for (j = 0; j < colCount; j++){
+	   		sprintf(str, "%d", *(buffer + i*colCount + j));
+	    	fprintf(f, "%s", str);
+	    }
+	    
+	}
+
+
 	//Buffer currently has nothing so expect error.
-	fwrite(buffer, sizeof(char), sizeof(buffer), f);
+	//fwrite(&buffer, sizeof(char), sizeof(buffer), f);
+
 	fclose(f);
 	return 0;
 }
