@@ -47,7 +47,7 @@ int read_file(char* filename, char **buffer){
 	    		if (c != EOF){
 					char a = c;
 		     		*(buffer + i*colCount + j) = &a;
-		     		printf("%s", *(buffer + i*colCount + j));
+		     		//printf("%s", *(buffer + i*colCount + j));
 		     	}
 	     	}
 	    }
