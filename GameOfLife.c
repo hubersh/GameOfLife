@@ -44,39 +44,41 @@ void game(char filename[]){
 	printf("Filename: %s\n", filename);
 	char* buffer;
 	read_file(filename, &buffer);
+	int n = 0;
+	while (n == 0) {
+		printf("Save (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
 
-	printf("Save (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
+		/*
+		* https://www.gnu.org/software/libc/manual/html_node/Line-Input.html
+		*/
+		int x;
+		char* status;
+		size_t len = 0;
+		ssize_t read = getline(&status, &len, stdin);
 
-	/*
-	* https://www.gnu.org/software/libc/manual/html_node/Line-Input.html
-	*/
-	int x;
-	char* status;
-	size_t len = 0;
-	ssize_t read = getline(&status, &len, stdin);
-
-	if (*status == 'S' || *status == 's') {
-		char newFile [1024];
-		int size = 0;
-		printf("Please provide a new filename: ");
-		fgets(newFile, sizeof(newFile), stdin); //Double Check -1
-		write_file(newFile, buffer, size);
-	} else if (*status == 'L' || *status == 'l'){
-		char* newFile;
-		printf("Please provide a filename to load: ");
-		ssize_t read = getline(&newFile, &len, stdin);
-		read_file(newFile, &buffer);
-	} else if (*status == 'C' || *status == 'c'){
-		; //Game Logic called here
-	} else if ((x = atoi(status))){
-		printf("%s\n","Hit");
-		//Game Logic called here
-	} else if (*status == 'Q' || *status == 'q'){
-		printf("%s\n", "Thanks for playing!");
-		exit(0);
-	} else {
-		printf("Please enter a valid input.\nGame exiting.");
-		exit(0);
+		if (*status == 'S' || *status == 's') {
+			char newFile [1024];
+			int size = 0;
+			printf("Please provide a new filename: ");
+			fgets(newFile, sizeof(newFile), stdin); //Double Check -1
+			write_file(newFile, buffer, size);
+		} else if (*status == 'L' || *status == 'l'){
+			char* newFile;
+			printf("Please provide a filename to load: ");
+			ssize_t read = getline(&newFile, &len, stdin);
+			read_file(newFile, &buffer);
+		} else if (*status == 'C' || *status == 'c'){
+			; //Game Logic called here
+		} else if ((x = atoi(status))){
+			printf("%s\n","Hit");
+			//Game Logic called here
+		} else if (*status == 'Q' || *status == 'q'){
+			printf("%s\n", "Thanks for playing!");
+			exit(0);
+		} else {
+			printf("Please enter a valid input.\nGame exiting.");
+			exit(0);
+		}
 	}
 }
 

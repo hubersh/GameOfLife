@@ -15,6 +15,37 @@
 * https://stackoverflow.com/questions/8770408/convert-int-to-char-in-standard-c-without-itoa
 **/
 
+
+// int createArray(int r, int c, char **buffer){
+
+// 	*buffer = (int *)malloc(r * c * sizeof(int));
+// 	int i, j = 0;//, count = 0;
+// 	for (i = 0; i < r; i++){
+// 		for (j = 0; j < c; j++){
+// 			int val = rand() %11;
+// 			if (val <= 6){
+// 				*(buffer + i*c + j) = 0;
+// 			} else if (val > 6 && val < 9){
+// 				*(buffer + i*c + j) = 1;
+// 			} else {
+// 				*(buffer + i*c + j) = 2;//++count;
+// 			}
+// 		}
+// 	}
+// 	for (i = 0; i < r; i++){
+// 	    for (j = 0; j < c; j++){
+// 		    printf("%d ", *(buffer + i*c + j));
+// 	    }
+// 		printf("\n");
+// 	}
+// 	//Move for actual game
+// 	free(buffer);
+// 	return 0;
+// }
+
+
+
+
 int rowCount;
 int colCount;
 
@@ -22,82 +53,80 @@ int read_file(char* filename, char **buffer){
 	int c;
 	FILE *file = fopen(filename, "r");
 
-	//get the size of the file
-	fseek(file, 0L, SEEK_END);
-	int sz = ftell(file);
-	fseek(file, 0L, SEEK_SET);
-
-	printf("file size: %d\n", sz);
-
-
+	colCount = 0;
+	rowCount = 0;
 
 	if (file) {
-
-		colCount = 0;
-		rowCount = 0;
 	    while ((c = getc(file)) != EOF){
 	    	 if(c == '\n'){
 	    	 	colCount = 0;
 	    	 	rowCount++;
+	    	 	//putchar(c);
 	    	 }
-	       // putchar(c);
+	        putchar(c);
 	        colCount++;
 	    }
 
-	    printf("Number of Columns: %d\n", colCount - 1);
+
+	    printf("\nNumber of Columns: %d\n", colCount - 1);
 	    printf("Number of Rows: %d\n\n", rowCount + 1);
+
+	    // *buffer = (char *)malloc(rowCount * colCount * sizeof(char));
+	    // free(buffer);
 
 	    //allocate space for the file contents
 		//Don't forget to free this bitch
 		//*buffer = (char*)malloc(sz * sizeof(char));
 
 	    //go back to the beggining of the file
-	    fseek(file, 0L, SEEK_SET);
+	    //fseek(file, 0L, SEEK_SET);
 	   
-	    int i, j = 0;
-	    for(i = 0; i < rowCount + 1; i++){
-	    	for (j = 0; j < colCount; j++){
-	    		
-	    		c = getc(file);
-
-	    		if(i < rowCount + 1 && j < colCount -1){
-	    			putchar(c);
-	    		}
-
-	    		//char* str;
-	    		//sprintf(str, "%d", c);
-	    		//*(buffer + i*colCount + j) = str;
-	    		
-	    	}
-	    	printf("\n");
-	    }
+	    // int i, j = 0;
+	    // for(i = 0; i < rowCount + 1; i++){
+	    // 	for (j = 0; j < colCount; j++){
+	    // 		c = getc(file);
+	    // 		if(i < rowCount + 1 && j < colCount -1){
+	    // 			putchar(c);
+	    // 		}
+	    // 		//char* str;
+	    // 		//sprintf(str, "%d", c);
+	    // 		//*(buffer + i*colCount + j) = str;
+	    // 	}
+	    // 	printf("\n");
+	    // }
 
 	    fclose(file);
-
-
 	} else {
-
 		size_t sz = strlen(filename);
 		char temp[sz];
 		memcpy(temp, &filename[0],sz);
 		temp[sz-1]='\0';
 
 		FILE *newFile = fopen(temp, "r");
-
 		if(newFile){
 			 while ((c = getc(newFile)) != EOF){
+			 	if(c == '\n'){
+		    	 	colCount = 0;
+		    	 	rowCount++;
+		    	 	//putchar(c);
+		    	 }
 		        putchar(c);
+		        colCount++;
 		    }
 		    fclose(newFile);
 		} else {
 			perror("fopen");
+			printf("\nProgram exited due to error.\n");
+			exit(0);
 		}
+
+		printf("\nNumber of Columns: %d\n", colCount - 1);
+	    printf("Number of Rows: %d\n\n", rowCount + 1);
+
+		// *buffer = (char *)malloc(rowCount * colCount * sizeof(char));
+	 //    free(buffer);
 	}
 	printf("\n");
-
-	//MOVE THIS LATER
-	//free(buffer);
-
 	return 0;
 }
 
