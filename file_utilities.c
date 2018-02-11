@@ -10,9 +10,6 @@
 *
 * Help getting size of a file
 * https://stackoverflow.com/questions/238603/how-can-i-get-a-files-size-in-c
-* 
-* Help converting int to char* -- sprintf
-* https://stackoverflow.com/questions/8770408/convert-int-to-char-in-standard-c-without-itoa
 **/
 
 int rowCount;
@@ -24,7 +21,6 @@ int read_file(char* filename, char **buffer){
 
 	colCount = 0;
 	rowCount = 0;
-
 
 	if (file) {
 	    while ((c = getc(file)) != EOF){
@@ -41,29 +37,20 @@ int read_file(char* filename, char **buffer){
 	    printf("\nNumber of Columns: %d\n", colCount - 1);
 	    printf("Number of Rows: %d\n\n", rowCount + 1);
 
-	    //*buffer = (char *)malloc(rowCount * colCount * sizeof(char));
-	    // free(buffer);
-
-	    //allocate space for the file contents
-		//Don't forget to free this bitch
-		//*buffer = (char*)malloc(sz * sizeof(char));
-
-	    //go back to the beggining of the file
-	    //fseek(file, 0L, SEEK_SET);
+	    *buffer = (char *)malloc(rowCount * colCount * sizeof(char));
+	    fseek(file, 0L, SEEK_SET);
 	   
-	    // int i, j = 0;
-	    // for(i = 0; i < rowCount + 1; i++){
-	    // 	for (j = 0; j < colCount; j++){
-	    // 		c = getc(file);
-	    // 		if(i < rowCount + 1 && j < colCount -1){
-	    // 			putchar(c);
-	    // 		}
-	    // 		//char* str;
-	    // 		//sprintf(str, "%d", c);
-	    // 		//*(buffer + i*colCount + j) = str;
-	    // 	}
-	    // 	printf("\n");
-	    // }
+	    int i, j = 0;
+	    for(i = 0; i < rowCount + 1; i++){
+	    	for (j = 0; j < colCount; j++){
+	    		c = getc(file);
+	    		if (c != EOF){
+					char a = c;
+		     		*(buffer + i*colCount + j) = &a;
+		     		printf("%s", *(buffer + i*colCount + j));
+		     	}
+	     	}
+	    }
 
 	    fclose(file);
 	} else {
@@ -93,8 +80,21 @@ int read_file(char* filename, char **buffer){
 		printf("\nNumber of Columns: %d\n", colCount - 1);
 	    printf("Number of Rows: %d\n\n", rowCount + 1);
 
-		// *buffer = (char *)malloc(rowCount * colCount * sizeof(char));
-	 //    free(buffer);
+
+	    *buffer = (char *)malloc(rowCount * colCount * sizeof(char));
+	    fseek(file, 0L, SEEK_SET);
+	   
+	    int i, j = 0;
+	    for(i = 0; i < rowCount + 1; i++){
+	    	for (j = 0; j < colCount; j++){
+	    		c = getc(file);
+	    		if (c != EOF){
+					char a = c;
+		     		*(buffer + i*colCount + j) = &a;
+		     		// printf("Buffer: %s\n", *(buffer + i*colCount + j));
+		     	}
+	     	}
+	    }
 	}
 	printf("\n");
 	return 0;
@@ -121,8 +121,19 @@ int write_file(char* filename, char *buffer, int size){
 	}
 
 	//Buffer currently has nothing so expect error.
-	fwrite(&buffer, sizeof(char), sizeof(buffer), f);
+	//fwrite(&buffer, sizeof(char), sizeof(buffer), f);
 
+	int i, j = 0;
+    for(i = 0; i < rowCount + 1; i++){
+    	for (j = 0; j < colCount; j++){
+    		printf("%c", *(buffer + i*colCount + j));
+ 	// while (!f.eof()){
+ 	// 	fputs()
+     //fprintf(f, "%s", buffer);//*(buffer + i*colCount + j));
+	 	}
+	 }
+    //  	}
+    // }
 	fclose(f);
 	return 0;
 }

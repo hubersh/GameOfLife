@@ -47,7 +47,6 @@ void game(char filename[]){
 	int n = 0;
 	while (n == 0) {
 		printf("Save (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
-
 		/*
 		* https://www.gnu.org/software/libc/manual/html_node/Line-Input.html
 		*/
