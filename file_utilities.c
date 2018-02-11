@@ -71,7 +71,7 @@ int read_file(char* filename, char **buffer){
 	    printf("\nNumber of Columns: %d\n", colCount - 1);
 	    printf("Number of Rows: %d\n\n", rowCount + 1);
 
-	    // *buffer = (char *)malloc(rowCount * colCount * sizeof(char));
+	    //*buffer = (char *)malloc(rowCount * colCount * sizeof(char));
 	    // free(buffer);
 
 	    //allocate space for the file contents
@@ -150,20 +150,8 @@ int write_file(char* filename, char *buffer, int size){
 		exit(0);
 	}
 
-	char* str;
-	
-	int i, j = 0;
-	for(i = 0; i < rowCount + 1; i++){
-	   	for (j = 0; j < colCount; j++){
-	   		sprintf(str, "%d", *(buffer + i*colCount + j));
-	    	fprintf(f, "%s", str);
-	    }
-	    
-	}
-
-
 	//Buffer currently has nothing so expect error.
-	//fwrite(&buffer, sizeof(char), sizeof(buffer), f);
+	fwrite(&buffer, sizeof(char), sizeof(buffer), f);
 
 	fclose(f);
 	return 0;
