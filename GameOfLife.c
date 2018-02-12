@@ -16,13 +16,13 @@
 **/
 
 void game(char filename[]){
-	printf("Filename: %s\n", filename);
+	printf("\nFilename: %s\n\n", filename);
 	char* arr;
 	int filesize = read_file(filename, &arr);
 
 	int n = 0;
 	while (n == 0) {
-		printf("\nSave (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
+		printf("\n\nSave (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
 		/*
 		* https://www.gnu.org/software/libc/manual/html_node/Line-Input.html
 		*/
@@ -73,7 +73,7 @@ void game(char filename[]){
             }
 
 		} else if ((x = atoi(status))){
-			printf("Progressing life along by %d generations\n", x);
+			printf("Progressing life along by %d generations\n\n", x);
 
             int rows = 0;
             int cols = 0;

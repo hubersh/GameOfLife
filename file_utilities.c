@@ -28,8 +28,6 @@ int read_file(char* filename, char **buffer){
 	        putchar(c);
 	        colCount++;
 	    }
-	    printf("\n");
-
 	    /*
 	    * https://stackoverflow.com/questions/42033932/c-program-to-reverse-content-of-a-file-and-write-that-to-another-file
 	    */
@@ -58,8 +56,6 @@ int read_file(char* filename, char **buffer){
 				putchar(c);
 				colCount++;
 			}
-			printf("\n");
-
 			int size;
 			fseek(newFile, 0L, SEEK_END);
 			size=ftell(newFile);
@@ -83,8 +79,6 @@ int read_file(char* filename, char **buffer){
 * https://stackoverflow.com/questions/4214314/get-a-substring-of-a-char
 */
 int write_file(char* filename, char *buffer, int size){
-	printf("%s\n", filename);
-
 	//Strip Extra Characters
 	size_t sz = strlen(filename);
 	char temp[sz];
@@ -95,7 +89,6 @@ int write_file(char* filename, char *buffer, int size){
 
 	if (f){
 		fputs(buffer, f);
-		free(buffer);
 	} else {
 		perror("fopen");
 		printf("\nProgram exited due to error.\n");
