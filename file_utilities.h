@@ -7,5 +7,7 @@
 
 int read_file(char* filename, char **buffer);
 int write_file(char* filename, char *buffer, int size);
+int get_row();
+int get_col();
 
 #endif
