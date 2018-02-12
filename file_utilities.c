@@ -12,8 +12,8 @@
 * https://stackoverflow.com/questions/238603/how-can-i-get-a-files-size-in-c
 **/
 
-int rowCount;
-int colCount;
+int rowCount = 0;
+int colCount = 0;
 
 int read_file(char* filename, char **buffer){
 	int c;
@@ -21,7 +21,12 @@ int read_file(char* filename, char **buffer){
 
 	if (file) {
 	    while ((c = getc(file)) != EOF){
+	    	if (c == '\n'){
+	    		rowCount++;
+	    		colCount = 0;
+	    	}
 	        putchar(c);
+	        colCount++;
 	    }
 	    printf("\n");
 
@@ -46,7 +51,12 @@ int read_file(char* filename, char **buffer){
 		FILE *newFile = fopen(temp, "r");
 		if(newFile){
 			while ((c = getc(newFile)) != EOF){
+				if (c == '\n'){
+		    		rowCount++;
+		    		colCount = 0;
+		    	}
 				putchar(c);
+				colCount++;
 			}
 			printf("\n");
 
@@ -83,21 +93,16 @@ int write_file(char* filename, char *buffer, int size){
 
 	FILE *f = fopen(temp, "wb");
 
-	if (f == NULL){
-		printf("Error opening file\n");
+	if (f){
+		fputs(buffer, f);
+	} else {
+		perror("fopen");
+		printf("\nProgram exited due to error.\n");
 		exit(0);
 	}
 
-	//Buffer currently has nothing so expect error.
-	//fwrite(&buffer, sizeof(char), sizeof(buffer), f);
-
-	// int i, j = 0;
- //    for(i = 0; i < rowCount + 1; i++){
- //    	for (j = 0; j < colCount; j++){
- //    		printf("%c", *(buffer + i*colCount + j));
-	//  	}
-	//  }
-    
+	//fputs(buffer, f);
+	free(buffer);
 	fclose(f);
 	return 0;
 }

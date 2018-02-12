@@ -43,14 +43,11 @@ int createArray(int r, int c){
 void game(char filename[]){
 	printf("Filename: %s\n", filename);
 	char* arr;
-	int filesize;
+	int filesize = 0;
 	filesize = read_file(filename, &arr);
-
-	printf("Here:\n%s\n", arr);
-	//printf("Here: %lu\n", sizeof(arr));
 	int n = 0;
 	while (n == 0) {
-		printf("Save (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
+		printf("\nSave (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
 		/*
 		* https://www.gnu.org/software/libc/manual/html_node/Line-Input.html
 		*/
@@ -61,10 +58,9 @@ void game(char filename[]){
 
 		if (*status == 'S' || *status == 's') {
 			char newFile [1024];
-			int size = 0;
 			printf("Please provide a new filename: ");
 			fgets(newFile, sizeof(newFile), stdin); //Double Check -1
-			write_file(newFile, arr, size);
+			write_file(newFile, arr, filesize);
 		} else if (*status == 'L' || *status == 'l'){
 			char* newFile;
 			printf("Please provide a filename to load: ");
@@ -77,9 +73,11 @@ void game(char filename[]){
 			//Game Logic called here
 		} else if (*status == 'Q' || *status == 'q'){
 			printf("%s\n", "Thanks for playing!");
+			free(arr);
 			exit(0);
 		} else {
 			printf("Please enter a valid input.\nGame exiting.");
+			free(arr);
 			exit(0);
 		}
 	}
