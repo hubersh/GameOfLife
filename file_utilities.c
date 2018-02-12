@@ -94,19 +94,8 @@ int write_file(char* filename, char *buffer, int size){
 	FILE *f = fopen(temp, "wb");
 
 	if (f){
-		if (size == 0){
-			fputs(buffer, f);
-			free(buffer);
-		} else {
-			printf("%s\n", "HIT");
-			int i, j = 0;
-			for (i = 0; i < rowCount+1; i++){
-			    for (j = 0; j < colCount-1; j++){
-				    printf("%s", (buffer + i*colCount + j));
-			    }
-				printf("\n");
-			}
-		}
+		fputs(buffer, f);
+		free(buffer);
 	} else {
 		perror("fopen");
 		printf("\nProgram exited due to error.\n");
@@ -115,13 +104,6 @@ int write_file(char* filename, char *buffer, int size){
 
 	fclose(f);
 	return 0;
-}
-
-int get_row(){
-	return rowCount+1;
-}
-int get_col(){
-	return colCount-1;
 }
 
 
