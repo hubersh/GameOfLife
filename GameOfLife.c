@@ -43,7 +43,11 @@ int createArray(int r, int c){
 void game(char filename[]){
 	printf("Filename: %s\n", filename);
 	char* arr;
-	read_file(filename, &arr);
+	int filesize;
+	filesize = read_file(filename, &arr);
+
+	printf("Here:\n%s\n", arr);
+	//printf("Here: %lu\n", sizeof(arr));
 	int n = 0;
 	while (n == 0) {
 		printf("Save (S), Load (L), continue another generation (C), continue some number of iterations (# of iterations), or quit (Q)?\n\n");
@@ -69,7 +73,7 @@ void game(char filename[]){
 		} else if (*status == 'C' || *status == 'c'){
 			; //Game Logic called here
 		} else if ((x = atoi(status))){
-			printf("%s\n","Hit");
+			printf("Progressing life along by %d generations\n", x);
 			//Game Logic called here
 		} else if (*status == 'Q' || *status == 'q'){
 			printf("%s\n", "Thanks for playing!");

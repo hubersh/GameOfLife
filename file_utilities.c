@@ -19,40 +19,24 @@ int read_file(char* filename, char **buffer){
 	int c;
 	FILE *file = fopen(filename, "r");
 
-	colCount = 0;
-	rowCount = 0;
-
 	if (file) {
 	    while ((c = getc(file)) != EOF){
-	    	 if(c == '\n'){
-	    	 	colCount = 0;
-	    	 	rowCount++;
-	    	 	//putchar(c);
-	    	 }
 	        putchar(c);
-	        colCount++;
 	    }
+	    printf("\n");
 
+	    /*
+	    * https://stackoverflow.com/questions/42033932/c-program-to-reverse-content-of-a-file-and-write-that-to-another-file
+	    */
+	    int size;
+		fseek(file, 0L, SEEK_END);
+		size=ftell(file);
+		*buffer = malloc(size*sizeof(char));
+		rewind(file);
+		fread(*buffer,size,1,file);
+		fclose(file);
+		return size;
 
-	    printf("\nNumber of Columns: %d\n", colCount - 1);
-	    printf("Number of Rows: %d\n\n", rowCount + 1);
-
-	    *buffer = (char *)malloc(rowCount * colCount * sizeof(char));
-	    fseek(file, 0L, SEEK_SET);
-	   
-	    int i, j = 0;
-	    for(i = 0; i < rowCount + 1; i++){
-	    	for (j = 0; j < colCount; j++){
-	    		c = getc(file);
-	    		if (c != EOF){
-					char a = c;
-		     		*(buffer + i*colCount + j) = &a;
-		     		printf("%s", *(buffer + i*colCount + j));
-		     	}
-	     	}
-	    }
-
-	    fclose(file);
 	} else {
 		size_t sz = strlen(filename);
 		char temp[sz];
@@ -61,35 +45,19 @@ int read_file(char* filename, char **buffer){
 
 		FILE *newFile = fopen(temp, "r");
 		if(newFile){
-			 while ((c = getc(newFile)) != EOF){
-			 	if(c == '\n'){
-		    	 	colCount = 0;
-		    	 	rowCount++;
-		    	 	//putchar(c);
-		    	 }
-		        putchar(c);
-		        colCount++;
-		    }
+			while ((c = getc(newFile)) != EOF){
+				putchar(c);
+			}
+			printf("\n");
 
-		    printf("\nNumber of Columns: %d\n", colCount - 1);
-		    printf("Number of Rows: %d\n\n", rowCount + 1);
-
-
-		    *buffer = (char *)malloc(rowCount * colCount * sizeof(char));
-		    fseek(newFile, 0L, SEEK_SET);
-		   
-		    int i, j = 0;
-		    for(i = 0; i < rowCount + 1; i++){
-		    	for (j = 0; j < colCount; j++){
-		    		c = getc(newFile);
-		    		if (c != EOF){
-						char a = c;
-			     		*(buffer + i*colCount + j) = &a;
-			     		printf("%s", *(buffer + i*colCount + j));
-			     	}
-		     	}
-		    }
-		    fclose(newFile);
+			int size;
+			fseek(newFile, 0L, SEEK_END);
+			size=ftell(newFile);
+			*buffer = malloc(size*sizeof(char));
+			rewind(newFile);
+			fread(*buffer,size,1,newFile);
+			fclose(newFile);
+			return size;
 		} else {
 			perror("fopen");
 			printf("\nProgram exited due to error.\n");
